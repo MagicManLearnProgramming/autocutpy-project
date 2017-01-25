@@ -31,11 +31,11 @@ Select you file(s) and submit.
 ![](https://github.com/MagicManLearnProgramming/autocutpy-project/raw/master/docs/illustrate_04.JPG)
 
 **You can also run on the command line:**
-> \>>> python autocutpy.py -f c:\scan\myimg.jpg
->Description： -f take a image file name
+> \>>> python autocutpy.py -f c:\scan\myimg.jpg  
+>Description： -f take a image file name  
 >
-> \>>> python autocutpy.py -p c:\scan -g 5
->Description：
+> \>>> python autocutpy.py -p c:\scan -g 5  
+>Description： 
 > -f take a path, every image file in that path will be dealt.  
 > -g The graininess of trimmer. range is (0, 5), the bigger the graininess , the larger the trimmed photos (Maybe). It's not very useful. The default value is 5 and work well.  
 >
