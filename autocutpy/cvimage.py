@@ -117,7 +117,7 @@ class CvImage(np.ndarray):
 
     def get_bin(self, thresh=0, renew=False):
         """
-        :param renew: generate a new blur image or just return the old blur image(if exist)
+        :param renew: generate a new binarazation image or just return the old blur image(if exist)
         :param thresh: the threshold of binarazation
         :return: the binarazation image
         """
