@@ -68,7 +68,7 @@ class AutoCutUi(object):
         print self.__header
         multiple_trim(fn_lst, grn)
         path = os.path.join(os.getcwd(), "result")
-        print "The trimmed photos are in <a href='%s'>%s<BR></a>" % (path, path)
+        print "The trimmed photos are in <a href='%s'>%s<BR></a>" % ("result/", path)
         print '<INPUT name = "Submit" type = "button" id = "Submit" ' \
               'onClick = "javascript:history.back(1)" value = "BACK" / >'
         for fn in fn_lst:
