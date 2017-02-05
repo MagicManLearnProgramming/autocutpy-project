@@ -122,7 +122,8 @@ class CutFrame(Tkinter.Frame):
 
 
 def main():
-    root = Tkinter.Tk()
+    root = Tkinter.Tk(className='autocutpy')
+    root.iconbitmap("resourse/scanner.ico")
     CutFrame(root).pack()
     root.mainloop()
 
