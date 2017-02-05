@@ -9,24 +9,32 @@ from BaseHTTPServer import HTTPServer
 from CGIHTTPServer import CGIHTTPRequestHandler
 from threading import Thread
 import webbrowser
+import os
 
 
-def trim(fn, grn=5):
+
+def trim(fn, grn=5, path=""):
     """
     function: Put the trimmed photos into result dir
+    :param path: The directory to save the result
     :param fn: file name
     :param grn: The graininess of trimmer. range is (0, 5), the graininess larger, the trimmed photos larger(Maybe).
     :return: No return. But print result text. e.g. "xxxx.jpg trimmed"
     """
+    fn = fn.encode('gbk')
+    if not path:
+        if "result" not in os.listdir(os.getcwd()):
+            os.mkdir("result")
+        out_path = os.path.join(os.getcwd(), "result",  + os.path.basename(fn)[: -4] + "_%s.jpg")
+    else:
+        out_path = os.path.join(path, os.path.basename(fn)[: -4] + "_%s.jpg")
+
     try:
         img = load_img(fn)
         trm = Trimmer(img, grn)
         photos = trm.trim2()
-        if "result" not in os.listdir(os.getcwd()):
-            os.mkdir("result")
-        basename = os.path.basename(fn)[: -4] + "_%s.jpg"
         for idx, photo in enumerate(photos):
-            new_fn = "result/" + basename % idx
+            new_fn = out_path % idx
             photo.save(new_fn)
         result = "%s trimmed<br>" % fn
     except Exception, e:
@@ -35,15 +43,16 @@ def trim(fn, grn=5):
     print result
 
 
-def multiple_trim(fn_lst, grn=5):
+def multiple_trim(fn_lst, grn=5, path=""):
     """
+    :param path: The directory to save the result
     :param fn_lst: List of file names
     :param grn: The graininess of trimmer. range is (0, 5), the graininess larger, the trimmed photos larger(Maybe).
     :return: No return. But print result texts. e.g. "xxxx.jpg trimmed"
     """
     p = Pool(cpu_count())
     for fn in fn_lst:
-        p.apply_async(trim, (fn, grn))
+        p.apply_async(trim, (fn, grn, path))
     p.close()
     p.join()
 
@@ -55,13 +64,16 @@ def process():
         -f: input file name with path
         2. >>>python autocutpy.py -p pic/
         -p: path of input files
-        3. >>>python autocutpy.py
-        No arg. start a web server.
+        3. >>>python autocutpy.py -w
+        -w start a web server.
         4. >>>python autocutpy.py -h
         -h: Show the help
+        5. >>>python autocutpy.py
+        No arg. start a graphical user interface.
         """
     if len(sys.argv) < 2:
-        return web_ui()
+        import gui
+        return gui.main()
     else:
         fn_lst = grn = None
         opts, args = getopt.getopt(sys.argv[1:], "f:p:g:h")
@@ -72,15 +84,17 @@ def process():
                 fn_lst = [value + fn for fn in os.listdir(value)]
             elif opt == "-g":
                 grn = value
+            elif opt == "-w":
+                return web_ui()
             elif opt == "-h":
                 print hp
                 return
         return multiple_trim(fn_lst, grn)
 
 
-def lunch():
+def launch():
     """
-    Lunch a web server of Autocutpy
+    Launch a web server of Autocutpy
     """
     try:
         server_address = ("", 9527)
@@ -96,9 +110,9 @@ def lunch():
 
 def web_ui():
     """
-    Lunch web server and a browser that points to that web server
+    Launch web server and a browser that points to that web server
     """
-    server = Thread(target=lunch)
+    server = Thread(target=launch)
     server.start()
     browser = Thread(target=webbrowser.open, args=("http://localhost:9527/webui.py",))
     browser.start()
