@@ -21,25 +21,25 @@ Super simple to use
 ↑Will launch a window to help you to do the cut and trim job.  
     
     
-![](https://github.com/MagicManLearnProgramming/autocutpy-project/blob/master/docs/illustrate_1%20(1\).jpg?raw=true)
-![](https://github.com/MagicManLearnProgramming/autocutpy-project/blob/master/docs/illustrate_1%20(2\).jpg?raw=true)
+![](https://github.com/MagicManLearnProgramming/autocutpy-project/blob/master/docs/illustrate_1%20(1).jpg?raw=true)
+![](https://github.com/MagicManLearnProgramming/autocutpy-project/blob/master/docs/illustrate_1%20(2).jpg?raw=true)
 
 ↑Select the image files that you want to cut and trim.  
   
   
-![](https://github.com/MagicManLearnProgramming/autocutpy-project/blob/master/docs/illustrate_1%20(3\).jpg?raw=true)
-![](https://github.com/MagicManLearnProgramming/autocutpy-project/blob/master/docs/illustrate_1%20(4\).jpg?raw=true)
+![](https://github.com/MagicManLearnProgramming/autocutpy-project/blob/master/docs/illustrate_1%20(3).jpg?raw=true)
+![](https://github.com/MagicManLearnProgramming/autocutpy-project/blob/master/docs/illustrate_1%20(4).jpg?raw=true)
 
 ↑Select a directory to save the trimmed photos.
   
   
-![](https://github.com/MagicManLearnProgramming/autocutpy-project/blob/master/docs/illustrate_1%20(5\).jpg?raw=true)
-![](https://github.com/MagicManLearnProgramming/autocutpy-project/blob/master/docs/illustrate_1%20(6\).jpg?raw=true)
+![](https://github.com/MagicManLearnProgramming/autocutpy-project/blob/master/docs/illustrate_1%20(5).jpg?raw=true)
+![](https://github.com/MagicManLearnProgramming/autocutpy-project/blob/master/docs/illustrate_1%20(6).jpg?raw=true)
    
 ↑Wait until the progress bar is full.   
    
    
-![](https://github.com/MagicManLearnProgramming/autocutpy-project/blob/master/docs/illustrate_1%20(7\).jpg?raw=true)
+![](https://github.com/MagicManLearnProgramming/autocutpy-project/blob/master/docs/illustrate_1%20(7).jpg?raw=true)
 ↑You get it.
 
 
