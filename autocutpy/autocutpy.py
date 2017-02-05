@@ -10,6 +10,7 @@ from CGIHTTPServer import CGIHTTPRequestHandler
 from threading import Thread
 import webbrowser
 import os
+import platform
 
 
 
@@ -21,7 +22,11 @@ def trim(fn, grn=5, path=""):
     :param grn: The graininess of trimmer. range is (0, 5), the graininess larger, the trimmed photos larger(Maybe).
     :return: No return. But print result text. e.g. "xxxx.jpg trimmed"
     """
-    fn = fn.encode('gbk')
+    if "Windows" in platform.platform():
+        fn = fn.encode('gbk')
+    else:
+        fn = fn.encode('utf-8')
+        
     if not path:
         if "result" not in os.listdir(os.getcwd()):
             os.mkdir("result")
