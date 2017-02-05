@@ -30,7 +30,7 @@ def trim(fn, grn=5, path=""):
     if not path:
         if "result" not in os.listdir(os.getcwd()):
             os.mkdir("result")
-        out_path = os.path.join(os.getcwd(), "result",  + os.path.basename(fn)[: -4] + "_%s.jpg")
+        out_path = os.path.join(os.getcwd(), "result", os.path.basename(fn)[: -4] + "_%s.jpg")
     else:
         out_path = os.path.join(path, os.path.basename(fn)[: -4] + "_%s.jpg")
 
