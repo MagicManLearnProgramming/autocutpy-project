@@ -23,7 +23,7 @@ def trim(fn, grn=5, path=""):
     :return: No return. But print result text. e.g. "xxxx.jpg trimmed"
     """
     
-    coding = locale.getdefaultlocale()[2]
+    coding = locale.getdefaultlocale()[1]
     fn = fn.encode(coding)
         
     if not path:
