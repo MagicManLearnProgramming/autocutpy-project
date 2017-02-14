@@ -117,7 +117,7 @@ class CvImage(np.ndarray):
 
     def get_bin(self, thresh=0, renew=False):
         """
-        :param renew: generate a new binarazation image or just return the old blur image(if exist)
+        :param renew: generate a new blur image or just return the old blur image(if exist)
         :param thresh: the threshold of binarazation
         :return: the binarazation image
         """
@@ -179,15 +179,24 @@ class Rect(object):
                                      (self.left, self.down)))
         else:
             self.degree = rect[2]
-            self.width = rect[1][0]
-            self.height = rect[1][1]
+            self.width = int(rect[1][0])
+            self.height = int(rect[1][1])
             self.rect_box = np.int0(cv2.boxPoints(rect))
             self.points = self.rect_box.T
-            self.left = min(self.points[0])
-            self.up = min(self.points[1])
-            self.right = max(self.points[0])
-            self.down = max(self.points[1])
+            self.left = abs(min(self.points[0]))
+            self.up = abs(min(self.points[1]))
+            self.right = abs(max(self.points[0]))
+            self.down = abs(max(self.points[1]))
 
+    def min2bnd(self):
+        """
+        :return: Given a min rect return a bound rectangle object
+        """
+        left = abs(self.left)
+        up = abs(self.up)
+        width = abs(self.right - self.left)
+        height = abs(self.down - self.up)
+        return Rect([left, up, width, height])
 
 def load_img(fn):
     """

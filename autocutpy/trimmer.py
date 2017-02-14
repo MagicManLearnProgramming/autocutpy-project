@@ -32,7 +32,7 @@ class Trimmer(object):
             op_img = bin_img.get_open()
             cl_img = op_img.get_close()
             iv_img = cl_img.get_inverse()
-            self.__min_rects = [rect for rect in iv_img.get_min_rects() if rect.height * rect.width > 1000]
+            self.__min_rects = [rect for rect in iv_img.get_min_rects() if rect.height * rect.width > 50000]
         return self.__min_rects
 
     def get_bnd_rects(self):
@@ -44,7 +44,7 @@ class Trimmer(object):
             op_img = bin_img.get_open()
             cl_img = op_img.get_close()
             iv_img = cl_img.get_inverse()
-            self.__bnd_rects = [rect for rect in iv_img.get_bnd_rects() if rect.height * rect.width > 1000]
+            self.__bnd_rects = [rect for rect in iv_img.get_bnd_rects() if rect.height * rect.width > 50000]
         return self.__bnd_rects
 
     def cut_bnd(self, rect, min_rect):
@@ -54,6 +54,8 @@ class Trimmer(object):
         :return: A piece of the photo in the rectangle. Rotate by PIL Lib. With Anti-aliasing, smoother.
         """
         roi = self.__img[rect.up: rect.down, rect.left: rect.right]
+        # print "debug [rect.up: rect.down, rect.left: rect.right] = ", [rect.up, rect.down, rect.left, rect.right]
+        # print "debug min = ", [min_rect.up, min_rect.down, min_rect.left, min_rect.right]
         pil_img = Image.fromarray(roi)
 
         # minimal the rotational angle
@@ -114,32 +116,34 @@ class Trimmer(object):
             result.append(self.cut_min(rect))
         return result
 
-    def trim2(self, rects=None):
+    def trim2(self):
         """
         :param rects: Rect() objects contain the pictures
         :return: Pictures in the rectangles.
         """
-        if not rects:
-            rects = self.get_bnd_rects()
         min_rects = self.get_min_rects()
+        bnd_rects = [rect.min2bnd() for rect in min_rects]
+        # print "debug bnd_rects", bnd_rects[0].up
         result = []
-        for idx, rect in enumerate(rects):
-            piece = self.cut_bnd(rect, min_rects[idx])
+        for bnd_rect, min_rect in zip(bnd_rects, min_rects):
+            piece = self.cut_bnd(bnd_rect, min_rect)
             result.append(piece)
         return result
 
 
 def test():
-    fn = "../resources/demo_02.jpg"
+    # fn = r"C:\Users\MaGiCmAn\Desktop\img-170213094812-001.jpg"
+    fn = r"C:\Users\MaGiCmAn\Desktop\newdemo.jpg"
     img = load_img(fn)
     trm = Trimmer(img)
     photos1 = trm.trim()
     photos2 = trm.trim2()
-    for idx in xrange(len(photos1)):
+    for idx in xrange(len(photos2)):
+        photos2[idx].show(str(idx))
         pn = fn[: -4] + '_' + str(idx)
+        photos2[idx].save(pn + "_2.jpg")
         # photos1[idx].save(pn + "_1.jpg")
         # print "debug photos2.shape = ", photos2[idx].shape
-        photos2[idx].save(pn + "_2.jpg")
 
 
 if __name__ == "__main__":

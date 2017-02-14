@@ -22,10 +22,8 @@ def trim(fn, grn=5, path=""):
     :param grn: The graininess of trimmer. range is (0, 5), the graininess larger, the trimmed photos larger(Maybe).
     :return: No return. But print result text. e.g. "xxxx.jpg trimmed"
     """
-    
     coding = locale.getdefaultlocale()[1]
     fn = fn.encode(coding)
-        
     if not path:
         if "result" not in os.listdir(os.getcwd()):
             os.mkdir("result")
@@ -123,10 +121,13 @@ def web_ui():
 
 
 def test():
-    path = "../resources/"
-    fn_lst = [path + fn for fn in os.listdir(path) if fn[-4:] == ".jpg"]
-    multiple_trim(fn_lst)
+    fn = r"C:\Users\MaGiCmAn\Desktop\img-170212172921-001.jpg"
+    trim(fn)
+    # path = "../resources/"
+    # fn_lst = [path + fn for fn in os.listdir(path) if fn[-4:] == ".jpg"]
+    # multiple_trim(fn_lst)
 
 
 if __name__ == "__main__":
+    # test()
     process()

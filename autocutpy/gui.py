@@ -68,9 +68,14 @@ class CutFrame(Tkinter.Frame):
         self.progress_var.set(0)
         self.pro_v = 0
 
-        # Tkinter.Button(self, text='test', command=self.test).pack(side="bottom", **button_opt)
+        Tkinter.Button(self, text='test', command=self.test).pack(side="bottom", **button_opt)
 
     def test(self):
+        import cvimage
+        img = cvimage.load_img(self.file_name[0].encode('cp936'))
+        bim = img.get_bin(self.grn.get())
+        bim.show("bin")
+        img.show("img")
         pass
 
     def askopenfile(self):
@@ -124,6 +129,9 @@ class CutFrame(Tkinter.Frame):
 def main():
     root = Tkinter.Tk(className='autocutpy')
     root.iconbitmap("resources/scanner.ico")
+    # root.master.title("scanner.ico")
+    # lab = Tkinter.Label(root, text='autocutpy')
+    # lab.pack()
     CutFrame(root).pack()
     root.mainloop()
 
